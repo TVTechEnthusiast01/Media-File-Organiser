@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>File Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- loading scripts and styles -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
+    <script src="/js/getfilelist.js"></script>
+    <script src="/js/uploader.js"></script>
+    
+    <!-- Hompage name-->
+    <div class="homepage">
+            <h2 style="font-size: 300%;">Media Organizer</h2>
+            <button onclick="document.location='index.html'">Go to media files</button></p>
+    </div>
+
+<!-- List of the different files that can be uploaded.-->
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'videouploader'); getListOfFiles('video', 'fileholder', 'loadinggif'); document.getElementById('viewoptions').style.display = 'none';">Video playlist</button>
+    <button class="tablinks" onclick="openTab(event, 'audiouploader'); getListOfFiles('audio', 'fileholder', 'loadinggif'); document.getElementById('viewoptions').style.display = 'none';">Audio playlist</button>
+
+    <div id="viewoptions">
+        <form>
+            View options:
+            <input type="radio" name="viewoption" value="details" onclick="replaceClassName('tile', 'details')" checked>Details
+            <input type="radio" name="viewoption" value="tile" onclick="replaceClassName('details', 'tile')">Tile
+        </form>
+    </div>
+</div>
+<!-- Placement of the buttons and the executable actions when interacted with-->
+<div id="progressBar"></div>
+
+<div id="videouploader" class="tabcontent">
+    <p><b>Video</b></p>
+    <form id="form_videoUpload" method="POST" action="/?type=video" enctype="multipart/form-data">
+        <input type="file" name="file" accept="video/*" required>
+        <input type="button" onclick="uploadToServer(document.getElementById('form_videoUpload'), document.getElementById('progressBar'))" value="Upload">
+    </form>
+</div>
+
+<div id="audiouploader" class="tabcontent">
+    <p><b>Audio</b></p>
+    <form id="form_audioUpload" method="POST" action="/?type=audio" enctype="multipart/form-data">
+        <input type="file" name="file" accept="audio/*" required>
+        <input type="button" onclick="uploadToServer(document.getElementById('form_audioUpload'), document.getElementById('progressBar'))" value="Upload">
+    </form>
+</div>
+
+<!-- loading icon when waiting for files to be imported-->
+<div><img id="loadinggif" src="/img/200.gif" alt="Loading Files..."></div>
+
+<div class="fileholder" id="fileholder"></div>
+
+
